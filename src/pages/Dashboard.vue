@@ -92,6 +92,7 @@ import MiniconsolePanel from '@/components/panels/MiniconsolePanel.vue'
 import MinSettingsPanel from '@/components/panels/MinSettingsPanel.vue'
 import MiscellaneousPanel from '@/components/panels/MiscellaneousPanel.vue'
 import SpoolmanPanel from '@/components/panels/SpoolmanPanel.vue'
+import AfcPanel from '@/components/panels/AfcPanel.vue';
 import StatusPanel from '@/components/panels/StatusPanel.vue'
 import ToolheadControlPanel from '@/components/panels/ToolheadControlPanel.vue'
 import TemperaturePanel from '@/components/panels/TemperaturePanel.vue'
@@ -112,6 +113,7 @@ import WebcamPanel from '@/components/panels/WebcamPanel.vue'
         ToolheadControlPanel,
         TemperaturePanel,
         WebcamPanel,
+        AfcPanel
     },
 })
 export default class PageDashboard extends Mixins(DashboardMixin) {

@@ -255,7 +255,7 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   private determineStatus(spool: any) {
     if (spool.load && spool.prep) {
       if (this.systemData && this.systemData.current_load === spool.laneName) {
-          if(spool.ID == this.$store.state.server.spoolman.active_spool?.id){
+          if(spool.spool_id == this.$store.state.server.spoolman.active_spool?.id){
               spool.weight = this.$store.state.server.spoolman.active_spool?.remaining_weight;
           }
         return "In Tool";

@@ -27,23 +27,26 @@
                 </v-list>
             </v-menu>
         </template>
-      <div class="status-wrapper">
-        <span class="tool-status">
-          <strong>Tool Status:</strong>
-          <span
-            :class="{
-              'status-light': true,
-              'status-green': toolStartSensorStatus,
-              'status-red': !toolStartSensorStatus,
-            }"
-          ></span>
-        </span>
-        <span class="buffer-status">
-          <span v-if="systemData?.extruders?.extruder?.buffer_status">
-            {{ bufferStatus() }}
-          </span>
-        </span>
-      </div>
+        <div class="status-wrapper">
+            <div class="tool-status">
+                <strong>Tool:</strong>
+                <span
+                    :class="{
+        'status-light': true,
+        'status-green': toolStartSensorStatus,
+        'status-red': !toolStartSensorStatus,
+      }"
+                ></span>
+            </div>
+
+            <div class="buffer-status">
+    <span v-if="systemData?.extruders?.extruder?.buffer_status">
+      <strong>Buffer:</strong> {{ bufferStatus() }}
+    </span>
+            </div>
+        </div>
+
+
         <!-- Here i  add some kind of v-if lane count < X dont fold out else use panels-->
       <div
         v-for="(unit, unitName) in unitsData"
@@ -62,7 +65,7 @@
             {{ String(unitName).replace(/_/g, " ") }} |
           </h2>
           <span class="hub-status">
-            <span><strong>Hub Status:</strong></span>
+            <span><strong>Hub:</strong></span>
             <span
               :class="{
                 'status-light': true,
@@ -325,6 +328,7 @@ export default class AfcPanel extends Mixins(BaseMixin) {
 
 .status-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -352,6 +356,11 @@ export default class AfcPanel extends Mixins(BaseMixin) {
 .hub-status {
   text-align: left;
   margin: 15px 0;
+}
+
+.buffer-status {
+    display: block;
+    margin-top: 5px;
 }
 
 .tool-status {

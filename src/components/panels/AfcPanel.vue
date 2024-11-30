@@ -7,16 +7,11 @@
       :collapsible="true"
       :expanded="true"
     >
-      <template #buttons>
-        <app-btn
-          icon
-          tile
-          :title="'Refresh AFC Spools'"
-          @click="fetchSpoolData"
-        >
-          <span class="icon-refresh"></span>
-        </app-btn>
-      </template>
+        <template #buttons>
+            <v-btn icon tile :title="'Refresh AFC Spools'" @click="fetchSpoolData">
+                <v-icon>{{ mdiRefresh }}</v-icon>
+            </v-btn>
+        </template>
       <div class="status-wrapper">
         <span class="tool-status">
           <strong>Tool Status:</strong>
@@ -120,10 +115,6 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   mdiAdjust = mdiAdjust;
   mdiRefresh = mdiRefresh;
   mdiDotsVertical = mdiDotsVertical;
-  mainsailIconSwitch: boolean = true;
-  klipperScreenIconSwitch: boolean = false;
-  spoolManIconSwitch: boolean = false;
-  noIconSwitch: boolean = false;
 
   showChangeSpoolDialog = false;
   selectedLane: any = null; // This will hold data of the clicked lane
@@ -131,9 +122,6 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   spoolData: any[] = [];
   intervalId: number | null = null;
   systemData: any = null;
-  isPanelOpen: number[] = [0];
-  currentPage: number = 0;
-  spoolsPerPage: number = 4;
   index: number = 0;
   unitsData: any = {};
 
@@ -155,9 +143,6 @@ export default class AfcPanel extends Mixins(BaseMixin) {
     }
 
   fetchSpoolData() {
-    /*const afcData = this.$store.state.printer.AFC
-      ? JSON.parse(JSON.stringify(this.$store.state.printer.AFC))
-      : null;*/
       const afcData = this.afc_Data ? JSON.parse(JSON.stringify(this.afc_Data)) : null;
 
     if (afcData) {

@@ -38,6 +38,7 @@ export const initableServerComponents = [
     'jobQueue',
     'announcements',
     'spoolman',
+    'afc',
     'sensor',
 ]
 
@@ -93,6 +94,7 @@ export const allDashboardPanels = [
     'miniconsole',
     'miscellaneous',
     'spoolman',
+    'afc',
     'temperature',
     'webcam',
 ]

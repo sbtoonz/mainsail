@@ -11,6 +11,21 @@
             <v-btn icon tile :title="'Refresh AFC Spools'" @click="fetchSpoolData">
                 <v-icon>{{ mdiRefresh }}</v-icon>
             </v-btn>
+            <v-menu :offset-y="true" :close-on-content-click="true" left>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon tile v-bind="attrs" v-on="on">
+                        <v-icon>{{ mdiDotsVertical }}</v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item>
+                        <v-radio-group v-model="selectedStyle">
+                            <v-radio label="Style 1" :value="1" @change="spitthing(1)"></v-radio>
+                            <v-radio label="Style 2" :value="0" @change="spitthing(0)"></v-radio>
+                        </v-radio-group>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </template>
       <div class="status-wrapper">
         <span class="tool-status">
@@ -58,15 +73,20 @@
             v-for="(spool, index) in unit.spools"
             :key="index"
             class="spool-card"
-            @click="openChangeSpoolDialog(spool, index)"
+            @click="openChangeSpoolDialog(spool)"
           >
-            <div class="filament-reel" style="padding: 1rem">
-              <spool-icon
-                :color="spool.color"
-                style="width: 25%; float: left"
-                class="mr-3"
-              />
-            </div>
+              <div class="filament-reel" style="padding: 1rem">
+                  <spool-icon
+                      v-if="styleIndex == 0"
+                      :color="spool.color"
+                      style="width: 35%; float: left"
+                      class="mr-3"
+                  />
+                  <FilamentReelIcon
+                      v-else
+                      :color="spool.color"
+                      style="width: 35%; float: left" class="mr-3"/>
+              </div>
             <div class="spool-header">
               <span
                 :class="{
@@ -101,14 +121,16 @@ import BaseMixin from "@/components/mixins/base";
 import Panel from "@/components/ui/Panel.vue";
 import { mdiAdjust, mdiRefresh, mdiDotsVertical } from "@mdi/js";
 import AfcChangeSpoolDialog from "@/components/dialogs/AfcChangeSpoolDialog.vue";
+import FilamentReelIcon from '@/components/ui/FilamentReelIcon.vue'
 import SpoolIcon from "@/components/ui/SpoolIcon.vue";
 import { AFCRoot } from '@/store/server/afc'
 
 @Component({
   components: {
     Panel,
-    AfcChangeSpoolDialog,
-    SpoolIcon,
+      AfcChangeSpoolDialog,
+      SpoolIcon,
+      FilamentReelIcon,
   },
 })
 export default class AfcPanel extends Mixins(BaseMixin) {
@@ -125,9 +147,11 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   index: number = 0;
   unitsData: any = {};
 
+  selectedStyle: number = 1;
+  styleIndex: number = 1;
 
   async mounted() {
-    await this.fetchSpoolData();
+    this.fetchSpoolData();
     this.intervalId = setInterval(this.fetchSpoolData, 5);
   }
 
@@ -187,6 +211,9 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   }
 
 
+  spitthing(changer: number){
+      this.styleIndex = changer;
+  }
 
   private groupByUnit(spoolData: any[]) {
     const units: any = {};
@@ -295,7 +322,6 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 15px;

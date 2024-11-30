@@ -68,7 +68,7 @@ export default class FilamentReelIcon extends Mixins(BaseMixin){
     }
 
     get secondaryColor() {
-        return {fill:"#9c5209"}
+        return {fill:"#c08f4f"}
     }
 
     size: {

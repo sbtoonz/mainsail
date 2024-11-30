@@ -102,7 +102,7 @@ import Panel from "@/components/ui/Panel.vue";
 import { mdiAdjust, mdiRefresh, mdiDotsVertical } from "@mdi/js";
 import AfcChangeSpoolDialog from "@/components/dialogs/AfcChangeSpoolDialog.vue";
 import SpoolIcon from "@/components/ui/SpoolIcon.vue";
-import { AFCDef, AFCRoot } from '@/store/server/afc'
+import { AFCRoot } from '@/store/server/afc'
 
 @Component({
   components: {
@@ -125,7 +125,6 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   index: number = 0;
   unitsData: any = {};
 
-  private lastValidData: any = null;
 
   async mounted() {
     await this.fetchSpoolData();
@@ -201,7 +200,7 @@ export default class AfcPanel extends Mixins(BaseMixin) {
     return units;
   }
 
-  openChangeSpoolDialog(spool: any, index: number) {
+  openChangeSpoolDialog(spool: any) {
     this.selectedLane = { spool, laneName: spool.laneName };
     this.showChangeSpoolDialog = true;
   }
@@ -242,21 +241,8 @@ export default class AfcPanel extends Mixins(BaseMixin) {
 </script>
 
 <style scoped>
-.afc-panel {
-  background-color: #1e1e1e;
-  color: #ffffff;
-  margin-bottom: 16px;
-}
-
 .afc-panel-wrapper {
   margin-bottom: 24px;
-}
-
-.v-card-title {
-  font-weight: bold;
-  font-size: 1.5em;
-  text-align: center;
-  padding-bottom: 16px;
 }
 
 .spool-container {

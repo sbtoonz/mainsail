@@ -12,7 +12,7 @@
                 <v-icon>{{ mdiRefresh }}</v-icon>
             </v-btn>
             <v-menu :offset-y="true" :close-on-content-click="true" left>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                     <v-btn icon tile v-bind="attrs" v-on="on">
                         <v-icon>{{ mdiDotsVertical }}</v-icon>
                     </v-btn>
@@ -54,8 +54,12 @@
           class="unit-header"
           style="display: flex; align-items: center; gap: 10px"
         >
+            <BoxTurtleIcon
+                v-if="unitsData[unitName]?.system?.type === 'Box_Turtle'"
+                style="width: 12%; height: 12%; margin-left: 10px;"
+            />
           <h2 class="unit-title" style="margin: 0">
-            {{ String(unitName).replace(/_/g, " ") }}
+            {{ String(unitName).replace(/_/g, " ") }} |
           </h2>
           <span class="hub-status">
             <span><strong>Hub Status:</strong></span>
@@ -85,7 +89,7 @@
                   <FilamentReelIcon
                       v-else
                       :color="spool.color"
-                      style="width: 35%; float: left" class="mr-3"/>
+                      style="width: 50%; float: left" class="mr-3"/>
               </div>
             <div class="spool-header">
               <span
@@ -124,6 +128,7 @@ import AfcChangeSpoolDialog from "@/components/dialogs/AfcChangeSpoolDialog.vue"
 import FilamentReelIcon from '@/components/ui/FilamentReelIcon.vue'
 import SpoolIcon from "@/components/ui/SpoolIcon.vue";
 import { AFCRoot } from '@/store/server/afc'
+import BoxTurtleIcon from "@/components/ui/BoxTurtleIcon.vue";
 
 @Component({
   components: {
@@ -131,6 +136,7 @@ import { AFCRoot } from '@/store/server/afc'
       AfcChangeSpoolDialog,
       SpoolIcon,
       FilamentReelIcon,
+      BoxTurtleIcon
   },
 })
 export default class AfcPanel extends Mixins(BaseMixin) {
@@ -292,7 +298,7 @@ export default class AfcPanel extends Mixins(BaseMixin) {
   padding: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   flex: 1 1 calc(23% - 16px);
-  max-width: 140px;
+  max-width: 180px;
   min-width: 80px;
   position: relative;
   cursor: hand;

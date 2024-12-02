@@ -1,13 +1,13 @@
 ﻿<template>
     <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 235 500"
-        width="1em"
-        height="1em"
-        :style="{ width: '2em', height: '2em' }"
+        height="20px"
+        width="20px"
+        style="float: right; margin-top: 2px; margin-left: 5px;"
+        viewBox="0 0 60 60"
+        xml:space="preserve"
     >
     <path
-        :style="setInfColor"
+        :style="infColorStyle"
         d="M43.594,12.5c-9.046,0-16.406,7.851-16.406,17.5c0,6.341-4.836,11.5-10.781,11.5S5.625,36.341,5.625,30
       s4.836-11.5,10.781-11.5c2.146,0,4.218,0.67,5.992,1.938c0.593,0.425,1.147,0.911,1.645,1.445c1.061,1.136,2.914,1.14,3.977,0.009
       c1.099-1.167,1.103-3.07,0.009-4.243c-0.76-0.813-1.601-1.552-2.499-2.194c-2.704-1.933-5.858-2.954-9.124-2.954
@@ -17,19 +17,18 @@
     />
   </svg>
 </template>
-
 <script lang="ts">
-import Component from 'vue-class-component'
-import { Mixins, Prop } from 'vue-property-decorator'
-import BaseMixin from '@/components/mixins/base'
 
-@Component({})
-export default class InfinityIcon extends Mixins(BaseMixin){
-    @Prop({ required: false, default: '#ff0000'})
-    declare readonly color: string
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    get setInfColor() {
-        return { fill: this.color }
+@Component
+export default class InfinityIcon extends Vue {
+    // Optional color prop with a default value of green
+    @Prop({ required: false, default: '#08ff00' }) readonly color!: string;
+
+    // Computed property to generate dynamic styles
+    get infColorStyle() {
+        return { fill: this.color };
     }
 }
 </script>

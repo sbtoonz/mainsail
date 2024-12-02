@@ -75,12 +75,12 @@
                                             <spool-icon
                                                 v-if="styleIndex == 0"
                                                 :color="spool.color"
-                                                style="width: 35%; float: left"
+                                                style="width: 65%; float: left"
                                                 class="mr-3" />
                                             <FilamentReelIcon
                                                 v-else
                                                 :color="spool.color"
-                                                style="width: 50%; float: left"
+                                                style="width: 40%; float: left"
                                                 class="mr-3" />
                                         </div>
                                         <div class="spool-header">
@@ -91,8 +91,51 @@
                                                     'status-ready': determineStatus(spool) === 'Ready',
                                                     'status-in-tool': determineStatus(spool) === 'In Tool',
                                                 }"></span>
-                                            <h3>{{ spool.laneName }}</h3>
+                                            <h3>{{ spool.laneName }}</h3><div class="spacer"/>
+                                            <select :name="spool?.laneName" class="afcList">
+                                                <template v-for="option in mapList">
+                                                    <option
+                                                        :key="option"
+                                                        :value="option"
+                                                        :selected="option === spool?.map">
+                                                        {{ option }}
+                                                    </option>
+                                                </template>
+                                            </select>
                                         </div>
+                                        <select :name="'map-' + spool?.laneName" class="afclist">
+                                        <template v-if="spool?.runout_lane === ''">
+                                            <option :value="''" selected>
+                                                NONE
+                                            </option>
+                                        </template>
+                                        <template v-else>
+                                            <option :value="''">
+                                                NONE
+                                            </option>
+                                        </template>
+                                        <div v-for="option in laneList" :key="option">
+                                            <template v-if="option === spool?.runout_lane">
+                                                <option :value="option" selected>
+                                                    {{ option }}
+                                                </option>
+                                            </template>
+                                            <template v-else>
+                                                <option :value="option">
+                                                    {{ option }}
+                                                </option>
+                                            </template>
+                                        </div>
+                                    </select>
+                                        <!--                            <infinity-icon
+                                                                                    v-if="spool?.runout_lane === ''" fill="#FF0000" height="20px" width="20px" version="1.1" id="Capa_1"
+                                                                                    style="float: right; margin-top: 2px; margin-left: 5px;"
+                                                                                    viewBox="0 0 60 60" xml:space="preserve">
+
+                                                                    </infinity-icon>-->
+                                        <infinity-icon>
+
+                                        </infinity-icon>
                                         <p v-if="spool.material">{{ spool.material }}</p>
                                         <p v-if="spool.weight">{{ spoolWeight(spool) }}</p>
                                     </div>
@@ -131,12 +174,12 @@
                                 <spool-icon
                                     v-if="styleIndex == 0"
                                     :color="spool.color"
-                                    style="width: 35%; float: left"
+                                    style="width: 65%; float: left"
                                     class="mr-3" />
                                 <FilamentReelIcon
                                     v-else
                                     :color="spool.color"
-                                    style="width: 50%; float: left"
+                                    style="width: 40%; float: left"
                                     class="mr-3" />
                             </div>
                             <div class="spool-header">
@@ -160,13 +203,7 @@
                                     </template>
                                 </select>
                             </div>
-                            <infinity-icon
-                                            v-if="spool?.runout_lane === ''" fill="#FF0000" height="20px" width="20px" version="1.1" id="Capa_1"
-                                            style="float: right; margin-top: 2px; margin-left: 5px;"
-                                            viewBox="0 0 60 60" xml:space="preserve">
-
-                            </infinity-icon>
-                            <select :name="'map-' + spool?.laneName" class="afclist" stlye="float: left;">
+                            <select :name="'map-' + spool?.laneName" class="afclist">
                                 <template v-if="spool?.runout_lane === ''">
                                     <option :value="''" selected>
                                         NONE
@@ -190,6 +227,15 @@
                                     </template>
                                 </div>
                             </select>
+                            <!--                            <infinity-icon
+                                                                        v-if="spool?.runout_lane === ''" fill="#FF0000" height="20px" width="20px" version="1.1" id="Capa_1"
+                                                                        style="float: right; margin-top: 2px; margin-left: 5px;"
+                                                                        viewBox="0 0 60 60" xml:space="preserve">
+
+                                                        </infinity-icon>-->
+                            <infinity-icon>
+
+                            </infinity-icon>
                             <p v-if="spool?.material">{{ spool.material }}</p>
                             <p v-if="spool?.weight">{{ spoolWeight(spool) }}</p>
                         </div>
@@ -419,6 +465,12 @@ export default class AfcPanel extends Mixins(BaseMixin) {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.afclist {
+    background-color: #2e2e2e;
+    color: white;
+    text-align: right;
 }
 
 .status-wrapper {

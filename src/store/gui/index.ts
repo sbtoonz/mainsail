@@ -170,6 +170,7 @@ export const getDefaultState = (): GuiState => {
             confirmOnEmergencyStop: false,
             confirmOnCoolDown: false,
             confirmOnPowerDeviceChange: false,
+            confirmOnCancelJob: false,
             boolBigThumbnail: true,
             bigThumbnailBackground: defaultBigThumbnailBackground,
             boolWideNavDrawer: false,
@@ -186,6 +187,10 @@ export const getDefaultState = (): GuiState => {
             tempchartHeight: 250,
             hideUpdateWarnings: false,
             printstatusThumbnailZoom: true,
+            dashboardFilesLimit: 5,
+            dashboardFilesFilter: ['new', 'failed', 'completed'],
+            dashboardHistoryLimit: 5,
+            hideOtherInstances: false,
         },
         view: {
             blockFileUpload: false,
